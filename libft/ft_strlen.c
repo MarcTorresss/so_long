@@ -6,15 +6,19 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 15:35:02 by martorre          #+#    #+#             */
-/*   Updated: 2023/09/12 16:53:15 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/15 19:09:21 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdio.h>
 
 int	ft_strlen(const char *s)
 {
 	int	i;
 
 	i = 0;
+	if (s == NULL)
+		return (0);
 	while (s[i] != '\0')
 		i++;
 	return (i);

@@ -6,49 +6,50 @@
 #    By: martorre <martorre@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 15:18:11 by martorre          #+#    #+#              #
-#    Updated: 2023/11/14 16:02:08 by martorre         ###   ########.fr        #
+#    Updated: 2023/11/22 15:22:27 by martorre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	= so_long
-FLAGS 	= -Wall -Wextra -Werror -O3 -I./libft
-INCLUDE = so_long.h
-CC = cc
-DIR_OBJ = temp/
+C = clang
+CC = gcc
+NAME = so_long
 
+FLAGS = -Wall -Wextra -Werror -O3 -I./libft
 
-SOURCES = main.c check_map.c\
+LIBFT = libft
 
+DIR_O = temp
 
-OBJ = $(addprefix $(DIR_OBJ), $(SOURCES:.c=.o))
+DIR_MLX = mlx
 
+SOURCES = main.c check_map.c utils.c
 
-all: temp makelib $(NAME)
+OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
+
+all: temp make_lib make_mlx $(NAME)
+
+$(NAME): $(OBJS) libft/libft.a mlx/libmlx.a
+	$(CC) $(OBJS) libft/libft.a mlx/libmlx.a -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	@echo "$(GREEN)so_long Compiled$(NC)"
+
+make_lib:
+	@$(MAKE) -C $(LIBFT) --no-print-directory
+
+make_mlx:
+	@$(MAKE) -C $(DIR_MLX) --no-print-directory
 
 temp:
-	mkdir -p $(DIR_OBJ)
+	@mkdir -p temp
 
-$(NAME): $(OBJ) libft/libft.a
-	@$(CC) $(FLAGS) -L libft -lft -o $@ $^ -framework OpenGL -framework AppKit -L mlx -lmlx
-	@echo so_long compiled
-
-all_test: temp MAKELIB
-
-makelib:
-	$(MAKE) -C ./mlx
-	$(MAKE) -C ./libft
-
-$(DIR_OBJ)%.o: %.c Makefile $(INCLUDE) libft/libft.a
-	@mkdir -p $(dir $@)
-	@$(CC) $(FLAGS) -c $< -o $@
-	@echo Compiling $< ...
+$(DIR_O)/%.o: %.c $(NAME).h libft/libft.a
+	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
 clean:
-	@rm -rf $(DIR_OBJ)
+	@rm -rf $(DIR_O)
 	@echo Deleting all objects
 
 fclean: clean
-	@rm -rf $(NAME) $(BONUS_NAME)
+	@rm -rf $(NAME)
 	@echo Deleting all
 
 re : fclean all

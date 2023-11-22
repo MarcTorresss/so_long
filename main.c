@@ -6,75 +6,128 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:21:24 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/14 15:10:28 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:47:23 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "./libft.h"
-#include <mlx.h>
 
-int	check_file(char *str)
+void	calc_img(t_img img, char **map, int width, int high)
+{
+	if (map[img.y][img.x] == '1')
+	{
+		img.tree = mlx_xpm_file_to_image(img.mlx, "./img/tree1.xpm", &width, &high);
+		mlx_put_image_to_window (img.mlx, img.window, img.tree, width * img.x,  high * img.y);
+	}
+	else if (map[img.y][img.x] == '0')
+	{
+		img.grass_one = mlx_xpm_file_to_image(img.mlx, "./img/Grass1.xpm", &width, &high);
+		mlx_put_image_to_window (img.mlx, img.window, img.grass_one, width * img.x,  high * img.y);
+	}
+	else if (map[img.y][img.x] == 'C')
+	{
+		img.coin = mlx_xpm_file_to_image(img.mlx, "./img/coin1.xpm", &width, &high);
+		mlx_put_image_to_window (img.mlx, img.window, img.coin, width * img.x,  high * img.y);
+	}
+	else if (map[img.y][img.x] == 'P')
+	{
+		img.player = mlx_xpm_file_to_image(img.mlx, "./img/player1.xpm", &width, &high);
+		mlx_put_image_to_window (img.mlx, img.window, img.player, width * img.x,  high * img.y);
+	}
+	else if (map[img.y][img.x] == 'E')
+	{
+		img.door = mlx_xpm_file_to_image(img.mlx, "./img/door1.xpm", &width, &high);
+		mlx_put_image_to_window (img.mlx, img.window, img.door, width * img.x,  high * img.y);
+	}
+}
+
+void	put_img(t_img img, char **map)
+{
+	int	width;
+	int	high;
+
+	width = 0;
+	high = 0;
+	while (map[img.y][img.x] != '\0')
+	{
+		if (map[img.y][img.x] != '\n')
+			calc_img(img, map, width, high);
+		else
+		{
+			img.y++;
+			img.x = -1;
+		}
+		img.x++;
+	}
+}
+
+int	calc_line(char *str)
+{
+	char	*new = NULL;
+	int		i;
+	int		fd;
+	
+	i = 0;
+	fd = open(str, O_RDONLY);
+	if (fd == -1)
+		return (ft_printf("Invalid fd!\n"), 0);
+	new = get_next_line(fd);
+	while (new != NULL)
+	{
+		i++;
+		new = get_next_line(fd);
+	}
+	return (i);
+}
+
+char	**check_file(char *str)
 {
 	int		i;
 	int		fd;
-	char	*new[OPEN_MAX];
+	char	**new = NULL;
 
 	fd = 0;
 	i = 0;
-    if(ft_strlen(ft_strnstr(str, ".ber", ft_strlen(str))) != ft_strlen(".ber"))
-    	return (ft_printf("Invalid file!\n"), 1);
+	new = malloc(sizeof(char *) * (calc_line(str) + 1));
+    if (ft_strlen(ft_strnstr(str, ".ber", ft_strlen(str))) != ft_strlen(".ber"))
+    	return (free(new), ft_printf("Invalid extension!\n"), NULL);
     else
 	{
 		fd = open(str, O_RDONLY);
 		if (fd == -1)
-			return (ft_printf("Invalid fd!\n"), 1);
+			return (free(new), ft_printf("Invalid fd!\n"), NULL);
 		new[i] = get_next_line(fd);
 		while (new[i] != NULL)
 		{
+			printf("%s" , new[i]);
 			i++;
 			new[i] = get_next_line(fd);
 		}
-		check_map(new);
 	}
-	return (0);
+	return (new);
 }
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
 
 int	main(int argc, char **argv)
 {
-	void	*mlx;
-	void	*img;
-	char	*relative_path = "./player.png";
-	int		img_width;
-	int		img_height;
-	
-	mlx = NULL;
-	img = NULL;
-	img_width = 0;
-	img_height = 0;
-    if  (argc > 2)
-        ft_printf("To many arguments!\n");
+	char	**map;
+	t_img	img;
+
+    if  (argc != 2)
+		ft_printf("Bad arguments!\n");
     else
 	{
-        check_file(argv[1]);
-		/*mlx = mlx_init();
-		mlx_win = mlx_new_window(mlx, 1920, 1080, "./so_long");
-		img.img = mlx_new_image(mlx, 1920, 1080);
-		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-									&img.endian);
-		my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
-		mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-		mlx_loop(mlx);*/
-		mlx = mlx_init();
-		img = mlx_png_file_to_image(mlx, relative_path, &img_width, &img_height);
+    	map = check_file(argv[1]);
+		if (check_map(map) == 0)
+		{
+			img = img_init();
+			img = calc_x_y(map);
+			img.mlx = mlx_init();
+			img.window = mlx_new_window(img.mlx, img.xs * 50, img.ys * 50, "./so_long");
+			put_img(img, map);
+			mlx_loop(img.mlx);
+			free(map);
+		}
 	}
 	return (0);
 }

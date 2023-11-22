@@ -6,12 +6,12 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:23:10 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/14 11:54:31 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:47:03 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "../so_long/libft/libft.h"
+#include "libft/libft.h"
 
 t_chars	init_chars()
 {
@@ -85,18 +85,16 @@ int		check_bott_lef(char **new)
 {
 	int	y;
 	int	x;
-	int	out;
 
 	y = 0;
 	x = 0;
-	out = 0;
 	while (new[y] != NULL)
 		y++;
 	y--;		
-	while (new[y][x] != '\0' && out == 0)
+	while (new[y][x] != '\0')
 	{
 		if (new[y][x] != '1')
-			out = 1;
+			return (1);
 		x++;
 	}
 	y = 0;
@@ -104,13 +102,13 @@ int		check_bott_lef(char **new)
 	while (new[y][x] != '\n' && new[y][x] != '\0')
 		x++;
 	x--;
-	while (new[y] != NULL && out == 0)
+	while (new[y] != NULL)
 	{
 		if (new[y][x] != '1')
-			out = 1;
+			return (1);
 		y++;
 	}
-	return (out);
+	return (0);
 }
 
 int	check_top_ri(char **new)
@@ -144,8 +142,9 @@ int	check_map(char **new)
 	if (check_top_ri(new) == 0 && check_bott_lef(new) == 0
 		&& check_chars(new) == 0 && check_len(new) == 0)
 	{
-        printf("ok");
+		return (0);
 	}
-
+	else
+		return (1);
 	return (0);
 }
