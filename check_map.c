@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:23:10 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/22 19:47:03 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:36:57 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ t_chars	init_chars()
 {
 	t_chars	chars;
 
-	chars.c = 0;
-	chars.p = 0;
-	chars.e = 0;
+	chars.coin = 0;
+	chars.pos_ini = 0;
+	chars.exit = 0;
 
 	return (chars);
 }
@@ -36,11 +36,11 @@ int	check_chars(char **new)
 	while (new[y][x] != '\0')
 	{
 		if (new[y][x] == 'P')
-			chars.p++;
+			chars.pos_ini++;
 		if (new[y][x] == 'E')
-			chars.e++;
+			chars.exit++;
 		if (new[y][x] == 'C')
-			chars.c++;
+			chars.coin++;
 		if (new[y][x] == '\n')
 		{
 			y++;
@@ -48,7 +48,7 @@ int	check_chars(char **new)
 		}
 		x++;
 	}
-	if (chars.p == 1 && chars.e == 1 && chars.c >= 1)
+	if (chars.pos_ini == 1 && chars.exit == 1 && chars.coin >= 1)
 		return (0);
 	return (1);
 }
@@ -145,6 +145,6 @@ int	check_map(char **new)
 		return (0);
 	}
 	else
-		return (1);
+		return (ft_printf("Invalid map :|\n"));
 	return (0);
 }
