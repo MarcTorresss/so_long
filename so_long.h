@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:21:43 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/23 15:35:53 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/27 18:44:20 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ typedef struct s_chars
 	int				exit;
 }					t_chars;
 
+typedef struct t_chmo
+{
+	int				x;
+	int				y;
+	int				m_x;
+	int				m_y;
+	int				qtt;
+	int				ok;
+}					t_chmo;
+
 typedef struct s_img
 {
 	void			*player;
@@ -46,10 +56,13 @@ typedef struct s_img
 	void			*door;
 	void			*window;
 	void			*mlx;
+	char			**map;
 	int				x;
 	int				y;
 	int				rowsy;
 	int				colsx;
+	t_chars			chars;
+	t_chmo			move;
 }					t_img;
 
 typedef struct s_moves
@@ -60,25 +73,25 @@ typedef struct s_moves
 	int				d;
 }					t_moves;
 
-enum {
-	ON_KEYDOWN = 1,
-	ON_KEYUP = 13,
-	ON_KEYIZQ = 0,
-	ON_KEYDER= 2,
-	ON_MOUSEDOWN = 4,
-	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6,
-	ON_EXPOSE = 12,
-	ON_DESTROY = 17
-};
+
+# define ON_KEYDOWN 1
+# define ON_KEYUP 13
+# define ON_KEYIZQ 0
+# define ON_KEYDER 2
+
 
 int		check_map(char **new);
 t_img	img_init();
-t_img	calc_x_y(char **map);
+t_img	calc_x_y(t_img img);
 t_img	init_files(int *width, int *high, t_img img);
 int		calc_line(char *str);
-void	calc_img(t_img img, char **map, int width, int high);
+void	calc_img(t_img img, int width, int high);
 int		close_win_esc(int key, t_img *img);
 int		close_win(t_img *img);
+int		ft_moves(int key, void *img);
+void	put_img(t_img img);
+int		check_move(t_img *img);
+t_img	inti_checkmove();
+char	**check_file(char *str);
 
 #endif

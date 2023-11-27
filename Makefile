@@ -6,7 +6,7 @@
 #    By: martorre <martorre@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 15:18:11 by martorre          #+#    #+#              #
-#    Updated: 2023/11/23 14:07:57 by martorre         ###   ########.fr        #
+#    Updated: 2023/11/27 16:33:44 by martorre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ DIR_O = temp
 
 DIR_MLX = mlx
 
-SOURCES = main.c check_map.c utils.c moves.c mlx_utils.c
+SOURCES = main.c check_map.c utils.c moves.c mlx_utils.c moves_utils.c
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
