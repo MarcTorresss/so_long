@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:01:00 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/27 19:47:23 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:59:52 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ t_img   ft_move_up(t_img *img)
 {
     img->move.y = 0;
     img->move.x = 0;
-    //ft_printf("y = %d, x = %d", img->move.y, img->move.x);
-    while (img->map[img->move.y][img->move.x] != 'P' && img->map[img->move.y][img->move.x] != '\0')
+    while (img->map[img->move.y][img->move.x] != 'P' && img->map[img->move.y][img->move.x] != 'B'
+        && img->map[img->move.y][img->move.x] != 'R' && img->map[img->move.y][img->move.x] != 'L')
     {
         if (img->map[img->move.y][img->move.x] == '\n')
         {
@@ -28,7 +28,7 @@ t_img   ft_move_up(t_img *img)
     }
     img->move.m_y = img->move.y - 1;
     img->move.m_x = img->move.x;
-    check_move(img);
+    check_move(img, 'B');
     return (*img);
 }
 
@@ -36,7 +36,8 @@ t_img   ft_move_down(t_img *img)
 {
     img->move.y = 0;
     img->move.x = 0;
-    while (img->map[img->move.y][img->move.x] != 'P')
+    while (img->map[img->move.y][img->move.x] != 'P' && img->map[img->move.y][img->move.x] != 'B'
+        && img->map[img->move.y][img->move.x] != 'R' && img->map[img->move.y][img->move.x] != 'L')
     {
         if (img->map[img->move.y][img->move.x] == '\n')
         {
@@ -47,7 +48,7 @@ t_img   ft_move_down(t_img *img)
     }
     img->move.m_y = img->move.y + 1;
     img->move.m_x = img->move.x;
-    check_move(img);
+    check_move(img, '0');
     return (*img);
 }
 
@@ -55,7 +56,8 @@ t_img   ft_move_izq(t_img *img)
 {
     img->move.y = 0;
     img->move.x = 0;
-    while (img->map[img->move.y][img->move.x] != 'P')
+    while (img->map[img->move.y][img->move.x] != 'P' && img->map[img->move.y][img->move.x] != 'B'
+        && img->map[img->move.y][img->move.x] != 'R' && img->map[img->move.y][img->move.x] != 'L')
     {
         if (img->map[img->move.y][img->move.x] == '\n')
         {
@@ -66,7 +68,7 @@ t_img   ft_move_izq(t_img *img)
     }
     img->move.m_y = img->move.y;
     img->move.m_x = img->move.x - 1;
-    check_move(img);
+    check_move(img, 'L');
     return (*img);
 }
 
@@ -74,7 +76,8 @@ t_img   ft_move_der(t_img *img)
 {
     img->move.y = 0;
     img->move.x = 0;
-    while (img->map[img->move.y][img->move.x] != 'P')
+    while (img->map[img->move.y][img->move.x] != 'P' && img->map[img->move.y][img->move.x] != 'B'
+        && img->map[img->move.y][img->move.x] != 'R' && img->map[img->move.y][img->move.x] != 'L')
     {
         if (img->map[img->move.y][img->move.x] == '\n')
         {
@@ -85,7 +88,7 @@ t_img   ft_move_der(t_img *img)
     }
     img->move.m_y = img->move.y;
     img->move.m_x = img->move.x + 1;
-    check_move(img);
+    check_move(img, 'R');
     return (*img);
 }
 
@@ -110,6 +113,5 @@ int    ft_moves(int key, void *img)
     {
         ft_move_izq(aux);
     }
-    ft_printf("\n\nTORRES COMO FUNCIONE ME ENFADARE QTT: %d\n", aux->move.qtt);
     return (0);
 }

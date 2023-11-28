@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:21:43 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/27 18:44:20 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:01:34 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ typedef struct t_chmo
 typedef struct s_img
 {
 	void			*player;
+	void			*playerS;
+	void			*playerB;
+	void			*playerSE;
 	void			*grass;
 	void			*tree;
 	void			*coin;
@@ -61,6 +64,8 @@ typedef struct s_img
 	int				y;
 	int				rowsy;
 	int				colsx;
+	int				width;
+	int				high;
 	t_chars			chars;
 	t_chmo			move;
 }					t_img;
@@ -83,14 +88,14 @@ typedef struct s_moves
 int		check_map(char **new);
 t_img	img_init();
 t_img	calc_x_y(t_img img);
-t_img	init_files(int *width, int *high, t_img img);
+t_img	init_files(t_img img);
 int		calc_line(char *str);
-void	calc_img(t_img img, int width, int high);
+void	calc_img(t_img img);
 int		close_win_esc(int key, t_img *img);
 int		close_win(t_img *img);
 int		ft_moves(int key, void *img);
 void	put_img(t_img img);
-int		check_move(t_img *img);
+int		check_move(t_img *img, char c);
 t_img	inti_checkmove();
 char	**check_file(char *str);
 

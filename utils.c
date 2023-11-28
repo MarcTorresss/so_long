@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:20:28 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/27 19:44:36 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:13:33 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_img	img_init()
 	img.y = 0;
 	img.colsx = 0;
 	img.rowsy = 0;
+	img.width = 0;
+	img.high = 0;
 	img.move.m_x = 0;
     img.move.m_y = 0;
     img.move.x = 0;
@@ -55,13 +57,16 @@ t_img	calc_x_y(t_img img)
 	return (img);
 }
 
-t_img	init_files(int *width, int *high, t_img img)
+t_img	init_files(t_img img)
 {
-	img.tree = mlx_xpm_file_to_image(img.mlx, "./img/tree.xpm", width, high);
-	img.grass = mlx_xpm_file_to_image(img.mlx, "./img/grass.xpm", width, high);
-	img.coin = mlx_xpm_file_to_image(img.mlx, "./img/coin.xpm", width, high);
-	img.player = mlx_xpm_file_to_image(img.mlx, "./img/player.xpm", width, high);
-	img.door = mlx_xpm_file_to_image(img.mlx, "./img/door.xpm", width, high);
+	img.tree = mlx_xpm_file_to_image(img.mlx, "./img/tree.xpm", &img.width, &img.high);
+	img.grass = mlx_xpm_file_to_image(img.mlx, "./img/grass.xpm", &img.width, &img.high);
+	img.coin = mlx_xpm_file_to_image(img.mlx, "./img/coin.xpm", &img.width, &img.high);
+	img.player = mlx_xpm_file_to_image(img.mlx, "./img/player.xpm", &img.width, &img.high);
+	img.playerS = mlx_xpm_file_to_image(img.mlx, "./img/playerS.xpm", &img.width, &img.high);
+	img.playerSE = mlx_xpm_file_to_image(img.mlx, "./img/playerSE.xpm", &img.width, &img.high);
+	img.playerB = mlx_xpm_file_to_image(img.mlx, "./img/playerB.xpm", &img.width, &img.high);
+	img.door = mlx_xpm_file_to_image(img.mlx, "./img/door.xpm", &img.width, &img.high);
 	return (img);
 }
 
@@ -84,16 +89,22 @@ int	calc_line(char *str)
 	return (i);
 }
 
-void	calc_img(t_img img, int width, int high)
+void	calc_img(t_img img)
 {
 	if (img.map[img.y][img.x] == '1')
-		mlx_put_image_to_window (img.mlx, img.window, img.tree, width * img.x,  high * img.y);
+		mlx_put_image_to_window (img.mlx, img.window, img.tree, img.width * img.x,  img.high * img.y);
 	else if (img.map[img.y][img.x] == '0')
-		mlx_put_image_to_window (img.mlx, img.window, img.grass, width * img.x,  high * img.y);
+		mlx_put_image_to_window (img.mlx, img.window, img.grass, img.width * img.x,  img.high * img.y);
 	else if (img.map[img.y][img.x] == 'C')
-		mlx_put_image_to_window (img.mlx, img.window, img.coin, width * img.x,  high * img.y);
+		mlx_put_image_to_window (img.mlx, img.window, img.coin, img.width * img.x,  img.high * img.y);
 	else if (img.map[img.y][img.x] == 'P')
-		mlx_put_image_to_window (img.mlx, img.window, img.player, width * img.x,  high * img.y);
+		mlx_put_image_to_window (img.mlx, img.window, img.player, img.width * img.x,  img.high * img.y);
+	else if (img.map[img.y][img.x] == 'R')
+		mlx_put_image_to_window (img.mlx, img.window, img.playerS, img.width * img.x,  img.high * img.y);
+	else if (img.map[img.y][img.x] == 'L')
+		mlx_put_image_to_window (img.mlx, img.window, img.playerSE, img.width * img.x,  img.high * img.y);
+	else if (img.map[img.y][img.x] == 'B')
+		mlx_put_image_to_window (img.mlx, img.window, img.playerB, img.width * img.x,  img.high * img.y);
 	else if (img.map[img.y][img.x] == 'E')
-		mlx_put_image_to_window (img.mlx, img.window, img.door, width * img.x,  high * img.y);
+		mlx_put_image_to_window (img.mlx, img.window, img.door, img.width * img.x,  img.high * img.y);
 }

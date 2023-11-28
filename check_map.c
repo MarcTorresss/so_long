@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:23:10 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/23 15:36:57 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:35:55 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,22 +87,21 @@ int		check_bott_lef(char **new)
 	int	x;
 
 	y = 0;
-	x = 0;
+	x = -1;
 	while (new[y] != NULL)
 		y++;
 	y--;		
-	while (new[y][x] != '\0')
+	while (new[y][++x] != '\0')
 	{
 		if (new[y][x] != '1')
 			return (1);
-		x++;
 	}
 	y = 0;
 	x = 0;
 	while (new[y][x] != '\n' && new[y][x] != '\0')
 		x++;
 	x--;
-	while (new[y] != NULL)
+	while (new[++y] != NULL)
 	{
 		if (new[y][x] != '1')
 			return (1);

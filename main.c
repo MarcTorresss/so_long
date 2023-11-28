@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:21:24 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/27 19:20:50 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/28 12:40:47 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,11 @@
 
 void	put_img(t_img img)
 {
-	int	width;
-	int	high;
-
-	width = 0;
-	high = 0;
-	img = init_files(&width, &high, img);
+	img = init_files(img);
 	while (img.map[img.y][img.x] != '\0')
 	{
 		if (img.map[img.y][img.x] != '\n')
-			calc_img(img, width, high);
+			calc_img(img);
 		else
 		{
 			img.y++;
