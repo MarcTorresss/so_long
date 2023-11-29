@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:21:24 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/28 12:40:47 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/29 19:55:08 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,17 @@ char	**check_file(char *str)
 {
 	int		i;
 	int		fd;
-	char	**new = NULL;
+	char	**new;
 
+	new = NULL;
 	fd = 0;
 	i = 0;
+	if (calc_line(str) == 0)
+		return (NULL);
 	new = malloc(sizeof(char *) * (calc_line(str) + 1));
-    if (ft_strlen(ft_strnstr(str, ".ber", ft_strlen(str))) != ft_strlen(".ber"))
-    	return (free(new), ft_printf("Invalid extension :(\n"), NULL);
-    else
+	if (ft_strlen(ft_strnstr(str, ".ber", ft_strlen(str))) != ft_strlen(".ber"))
+		return (free(new), ft_printf("Invalid extension :(\n"), NULL);
+	else
 	{
 		fd = open(str, O_RDONLY);
 		if (fd == -1)
@@ -58,27 +61,27 @@ int	main(int argc, char **argv)
 {
 	t_img	img;
 
-    if  (argc != 2)
+	if (argc != 2)
 		ft_printf("Bad arguments :\\\n");
-    else
+	else
 	{
-		img = img_init();
-		img.map = check_file(argv[1]);
-		if (img.map != NULL)
+		img = img_init(argv[1]);
+		if (img.map != NULL && img.mapcpy != NULL)
 		{
-			if (check_map(img.map) == 0)
+			img = calc_x_y(img);
+			if (check_map(&img) == 0)
 			{
-				img = calc_x_y(img);
-				img.mlx = mlx_init();
-				img.window = mlx_new_window(img.mlx, img.colsx * 50, img.rowsy * 50, "./so_long");
+				img.window = mlx_new_window(img.mlx, img.colsx * 50, img.rowsy
+						* 50, "./so_long");
 				mlx_hook(img.window, 17, 0, close_win, &img);
 				mlx_hook(img.window, KEYUP, 0, close_win_esc, &img);
 				mlx_hook(img.window, KEYDOWN, 0, ft_moves, (void *)&img);
 				put_img(img);
 				mlx_loop(img.mlx);
-				free(img.map);
 			}
 		}
+		/*free(img.map);
+		free(img.mapcpy);*/
 	}
 	return (0);
 }
