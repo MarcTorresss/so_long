@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:21:43 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/29 18:30:13 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:44:28 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct t_chmo
 	int		m_x;
 	int		m_y;
 	int		qtt;
-	int		ok;
 }			t_chmo;
 
 typedef struct s_img
@@ -99,7 +98,7 @@ typedef struct s_pos
 # define ON_KEYDER 2
 
 int			check_map(t_img *img);
-t_img		img_init(char *str);
+t_img		img_init(char *str, t_img *img);
 t_img		calc_x_y(t_img img);
 t_img		init_files(t_img img);
 t_chars		init_chars(void);
@@ -111,8 +110,9 @@ int			close_win(t_img *img);
 int			ft_moves(int key, void *img);
 void		put_img(t_img img);
 void		check_move(t_img *img, char c);
-char		**check_file(char *str);
-int			flood_fill(char **tab, t_point size);
+char		**check_file(char *str, t_img *img);
+int			flood_fill(t_img *img, t_point size);
 t_pos		check_letter_pos(t_pos pos, char **tab, int y, int x);
+void		ft_free_map(t_img *img);
 
 #endif

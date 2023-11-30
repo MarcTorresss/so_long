@@ -6,14 +6,14 @@
 #    By: martorre <martorre@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 18:13:35 by pfontenl          #+#    #+#              #
-#    Updated: 2023/11/08 13:39:15 by martorre         ###   ########.fr        #
+#    Updated: 2023/11/30 12:16:11 by martorre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= libft.a
 FLAGS 	= -Wall -Wextra -Werror -I .
 INCLUDE = libft.h
-CC = cc
+CC = gcc
 LIB = ar rcs
 DIR_PRINTF = printf/
 DIR_GETNL = get_next_line/

@@ -6,39 +6,37 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:20:28 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/29 18:14:58 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:44:40 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_img	img_init(char *str)
+t_img	img_init(char *str, t_img *img)
 {
-	t_img	img;
-
-	img.coin = 0;
-	img.grass = 0;
-	img.mlx = 0;
-	img.player = 0;
-	img.tree = 0;
-	img.window = 0;
-	img.door = 0;
-	img.x = 0;
-	img.y = 0;
-	img.colsx = 0;
-	img.rowsy = 0;
-	img.width = 0;
-	img.high = 0;
-	img.move.m_x = 0;
-	img.move.m_y = 0;
-	img.move.x = 0;
-	img.move.y = 0;
-	img.move.ok = 0;
-	img.move.qtt = 0;
-	img.map = check_file(str);
-	img.mapcpy = check_file(str);
-	img.mlx = mlx_init();
-	return (img);
+	img->coin = 0;
+	img->grass = 0;
+	img->mlx = 0;
+	img->player = 0;
+	img->tree = 0;
+	img->window = 0;
+	img->door = 0;
+	img->x = 0;
+	img->y = 0;
+	img->colsx = 0;
+	img->rowsy = 0;
+	img->width = 0;
+	img->high = 0;
+	img->move.m_x = 0;
+	img->move.m_y = 0;
+	img->move.x = 0;
+	img->move.y = 0;
+	img->move.qtt = 0;
+	img->map = check_file(str, img);
+	if (img->map != NULL)
+		img->mapcpy = check_file(str, img);
+	img->mlx = mlx_init();
+	return (*img);
 }
 
 t_img	calc_x_y(t_img img)
@@ -86,7 +84,6 @@ int	calc_line(char *str)
 	int		i;
 	int		fd;
 
-	new = NULL;
 	i = 0;
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
@@ -95,8 +92,11 @@ int	calc_line(char *str)
 	while (new != NULL)
 	{
 		i++;
+		free(new);
 		new = get_next_line(fd);
 	}
+	free(new);
+	close(fd);
 	return (i);
 }
 

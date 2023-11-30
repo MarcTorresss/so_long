@@ -6,14 +6,23 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:59:02 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/29 19:16:13 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:28:12 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_free_all(t_img *img)
+void	ft_free_map(t_img *img)
 {
+	int	y;
+
+	y = 0;
+	while (img->rowsy > y)
+	{
+		free(img->map[y]);
+		free(img->mapcpy[y]);
+		y++;
+	}
 	free(img->map);
 	free(img->mapcpy);
 }
@@ -22,7 +31,7 @@ int	close_win_esc(int key, t_img *img)
 {
 	if (key == 53)
 	{
-		ft_free_all(img);
+		ft_free_map(img);
 		mlx_destroy_window(img->mlx, img->window);
 		exit(0);
 	}
@@ -31,7 +40,7 @@ int	close_win_esc(int key, t_img *img)
 
 int	close_win(t_img *img)
 {
-	// ft_free_all(img);
+	ft_free_map(img);
 	mlx_destroy_window(img->mlx, img->window);
 	exit(0);
 	return (0);

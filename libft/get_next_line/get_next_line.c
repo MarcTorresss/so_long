@@ -6,11 +6,11 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 16:07:15 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/08 11:29:28 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/30 11:58:35 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 static char	*first_line(char *buffer)
 {
@@ -98,7 +98,7 @@ char	*get_next_line(int fd)
 	else
 	{
 		buffer = ft_start_read(fd, buffer);
-		if (!buffer || ft_strlen(buffer) == 0)
+		if (!buffer || gtnl_strlen(buffer) == 0)
 			return (free(buffer), buffer = NULL, NULL);
 		line = first_line(buffer);
 		if (!line)
@@ -113,14 +113,13 @@ char	*get_next_line(int fd)
 	int fd;
 	char *new;
 	int i;
-	int	num;
 
 	i = 0;
-	fd = open("hola", O_RDONLY);
+	fd = open("mao.ber", O_RDONLY);
 	new = get_next_line(fd);
 	while (new != NULL)
 	{
-		write(1,new, ft_strlen(new));
+		write(1,new, gtnl_strlen(new));
 		free(new);
 		new = get_next_line(fd);
 	}

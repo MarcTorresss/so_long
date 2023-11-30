@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:37:38 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/29 18:38:35 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:51:10 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	check_door(t_pos pos, char **tab)
 	return (1);
 }
 
-int	flood_fill(char **tab, t_point size)
+int	flood_fill(t_img *img, t_point size)
 {
 	int		y;
 	int		x;
@@ -79,20 +79,21 @@ int	flood_fill(char **tab, t_point size)
 
 	y = 0;
 	x = -1;
-	pos = init_pos_char(tab);
-	letters[0] = tab[pos.posp.y][pos.posp.x];
+	pos = init_pos_char(img->mapcpy);
+	letters[0] = img->mapcpy[pos.posp.y][pos.posp.x];
 	letters[1] = 'C';
-	fill(tab, size, pos.begin, letters);
-	while (tab[y][++x] != '\0')
+	fill(img->mapcpy, size, pos.begin, letters);
+	//free(letters);
+	while (img->mapcpy[y][++x] != '\0')
 	{
-		pos = init_pos_char(tab);
-		if (tab[y][x] == 'C')
-			if (check_coin(pos, tab) == 1)
-				return (ft_printf("Coin sin acceso :(\n"), 1);
+		pos = init_pos_char(img->mapcpy);
+		if (img->mapcpy[y][x] == 'C')
+			if (check_coin(pos, img->mapcpy) == 1)
+				return (ft_free_map(img), ft_printf("Coin sin acceso :(\n"), 1);
 		if (y == pos.pose.y && x == pos.pose.x)
-			if (check_door(pos, tab) == 1)
-				return (ft_printf("Puerta sin acceso :/\n"), 1);
-		if (tab[y][x] == '\n')
+			if (check_door(pos, img->mapcpy) == 1)
+				return (ft_free_map(img), ft_printf("Puerta sin acceso :/\n"), 1);
+		if (img->mapcpy[y][x] == '\n')
 		{
 			x = -1;
 			y++;

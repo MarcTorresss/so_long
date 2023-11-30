@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:29:47 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/29 16:59:57 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:38:05 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	check_exit(t_img *img)
 	if (img->map[img->move.m_y][img->move.m_x] == 'E' && img->chars.coin == 0)
 	{
 		mlx_destroy_window(img->mlx, img->window);
-		img->map = check_file("win.ber");
+		img->map = check_file("win.ber", img);
 		*img = calc_x_y(*img);
 		img->move.qtt++;
 		ft_printf("%d\n", img->move.qtt);

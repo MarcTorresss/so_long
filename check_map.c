@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:23:10 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/29 17:11:39 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:11:20 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	check_bott_lef(char **new)
 	while (new[y][x] != '\n' && new[y][x] != '\0')
 		x++;
 	x--;
-	while (new[++y] != NULL)
+	while (new[y] != NULL)
 	{
 		if (new[y][x] != '1')
 			return (1);
@@ -130,14 +130,15 @@ int	check_map(t_img *img)
 
 	size.x = img->colsx;
 	size.y = img->rowsy;
+
 	if (check_top_ri(img->map) == 0 && check_bott_lef(img->map) == 0
 		&& check_chars(img) == 0 && check_len(img->map) == 0)
 	{
-		return (flood_fill(img->mapcpy, size));
+		return (flood_fill(img, size));
 	}
 	else
 	{
-		return (ft_printf("Invalid map :|\n"));
+		return (ft_free_map(img), ft_printf("Invalid map :|\n"));
 	}
 	return (0);
 }

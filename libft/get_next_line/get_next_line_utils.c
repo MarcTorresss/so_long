@@ -6,11 +6,11 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:27:17 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/08 11:26:03 by martorre         ###   ########.fr       */
+/*   Updated: 2023/11/30 11:50:42 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 char	*gtnl_strjoin(char const *s1, char const *s2)
 {
@@ -22,8 +22,8 @@ char	*gtnl_strjoin(char const *s1, char const *s2)
 
 	if (!s1 || !s2)
 		return (free((char *)s1), NULL);
-	lens1 = ft_strlen((char *)s1);
-	lens2 = ft_strlen((char *)s2);
+	lens1 = gtnl_strlen((char *)s1);
+	lens2 = gtnl_strlen((char *)s2);
 	new = malloc((lens1 + lens2) + 1);
 	if (!new)
 		return (free((char *)s1), NULL);
@@ -46,7 +46,7 @@ char	*gtnl_strchr(const char *s, size_t c)
 	i = 0;
 	if (!s)
 		return (0);
-	len = ft_strlen(s);
+	len = gtnl_strlen(s);
 	while (i <= len)
 	{
 		if (s[i] == (char)c)
@@ -66,12 +66,12 @@ char	*gtnl_substr(char const *s, size_t start, size_t len)
 	j = 0;
 	if (s == NULL)
 		return (NULL);
-	while (i < len && start < ft_strlen(s) && s[start + i])
+	while (i < len && start < gtnl_strlen(s) && s[start + i])
 		i++;
 	new = malloc(i + 1);
 	if (!new)
 		return (0);
-	while (j < i && start < ft_strlen((char *)s))
+	while (j < i && start < gtnl_strlen((char *)s))
 	{
 		new[j] = s[start + j];
 		j++;
@@ -86,7 +86,7 @@ char	*gtnl_strdup(const char *s1)
 	char	*dup;
 
 	i = 0;
-	dup = malloc(ft_strlen(s1) + 1);
+	dup = malloc(gtnl_strlen(s1) + 1);
 	if (!dup)
 		return (NULL);
 	while (s1[i] != '\0')
