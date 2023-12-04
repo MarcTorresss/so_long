@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:20:28 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/30 15:44:40 by martorre         ###   ########.fr       */
+/*   Updated: 2023/12/04 13:06:52 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_img	img_init(char *str, t_img *img)
 	img->map = check_file(str, img);
 	if (img->map != NULL)
 		img->mapcpy = check_file(str, img);
-	img->mlx = mlx_init();
 	return (*img);
 }
 

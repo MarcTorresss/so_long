@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 15:33:33 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/13 17:04:46 by martorre         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:34:15 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*ft_strnstr(const char *haystack, char *needle, size_t len)
 
 /*int	main(void)
 {
-	char str[] = "hola.bar";
+	char str[] = "hola.barrr";
 	char find[] = ".bar";
 	char *re;
 	re = ft_strnstr(str, find, ft_strlen(str));

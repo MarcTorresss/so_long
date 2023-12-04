@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:23:10 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/30 15:11:20 by martorre         ###   ########.fr       */
+/*   Updated: 2023/12/04 11:56:03 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ int	check_map(t_img *img)
 
 	size.x = img->colsx;
 	size.y = img->rowsy;
-
 	if (check_top_ri(img->map) == 0 && check_bott_lef(img->map) == 0
 		&& check_chars(img) == 0 && check_len(img->map) == 0)
 	{

@@ -6,22 +6,22 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:37:38 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/30 15:51:10 by martorre         ###   ########.fr       */
+/*   Updated: 2023/12/04 11:56:53 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	fill(char **tab, t_point size, t_point cur, char *letters)
+void	fill(char **tab, t_point size, t_point cur)
 {
 	if (cur.y < 0 || cur.y >= size.y || cur.x < 0 || cur.x >= size.x
-		|| (tab[cur.y][cur.x] != letters[0] && tab[cur.y][cur.x] != letters[1]))
+		|| (tab[cur.y][cur.x] != PLAYER && tab[cur.y][cur.x] != COIN))
 		return ;
 	tab[cur.y][cur.x] = 'F';
-	fill(tab, size, (t_point){cur.x - 1, cur.y}, letters);
-	fill(tab, size, (t_point){cur.x + 1, cur.y}, letters);
-	fill(tab, size, (t_point){cur.x, cur.y - 1}, letters);
-	fill(tab, size, (t_point){cur.x, cur.y + 1}, letters);
+	fill(tab, size, (t_point){cur.x - 1, cur.y});
+	fill(tab, size, (t_point){cur.x + 1, cur.y});
+	fill(tab, size, (t_point){cur.x, cur.y - 1});
+	fill(tab, size, (t_point){cur.x, cur.y + 1});
 }
 
 t_pos	init_pos_char(char **tab)
@@ -31,16 +31,15 @@ t_pos	init_pos_char(char **tab)
 	t_pos	pos;
 
 	y = 0;
-	x = 0;
-	while (tab[y][x] != '\0')
+	x = -1;
+	while (tab[y][++x] != '\0')
 	{
 		pos = check_letter_pos(pos, tab, y, x);
-		if (tab[y][x] == '\n')
+		if (tab[y][x] == '\n' || tab[y][x] == '\0')
 		{
 			x = -1;
 			y++;
 		}
-		x++;
 	}
 	pos.begin.x = pos.posp.x;
 	pos.begin.y = pos.posp.y;
@@ -75,15 +74,12 @@ int	flood_fill(t_img *img, t_point size)
 	int		y;
 	int		x;
 	t_pos	pos;
-	char	letters[2];
 
 	y = 0;
 	x = -1;
 	pos = init_pos_char(img->mapcpy);
-	letters[0] = img->mapcpy[pos.posp.y][pos.posp.x];
-	letters[1] = 'C';
-	fill(img->mapcpy, size, pos.begin, letters);
-	//free(letters);
+	fill(img->mapcpy, size, pos.begin);
+	img->mapcpy[pos.posp.y][pos.posp.x] = 'P';
 	while (img->mapcpy[y][++x] != '\0')
 	{
 		pos = init_pos_char(img->mapcpy);
@@ -92,7 +88,7 @@ int	flood_fill(t_img *img, t_point size)
 				return (ft_free_map(img), ft_printf("Coin sin acceso :(\n"), 1);
 		if (y == pos.pose.y && x == pos.pose.x)
 			if (check_door(pos, img->mapcpy) == 1)
-				return (ft_free_map(img), ft_printf("Puerta sin acceso :/\n"), 1);
+				return (ft_free_map(img), ft_printf("Puerta sin acceso\n"), 1);
 		if (img->mapcpy[y][x] == '\n')
 		{
 			x = -1;

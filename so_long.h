@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:21:43 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/30 15:44:28 by martorre         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:03:06 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@
 # define MOUSEMOVE 6
 # define EXPOSE 12
 # define DESTROY 17
+# define PLAYER '0'
+# define COIN 'C'
+# define ERR_FD "Invalid fd :(\n"
+# define ERR_EX "Invalid extension :(\n"
 
 typedef struct s_chars
 {

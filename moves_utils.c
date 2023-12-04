@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:29:47 by martorre          #+#    #+#             */
-/*   Updated: 2023/11/30 15:38:05 by martorre         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:46:57 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	check_exit(t_img *img)
 		put_img(*img);
 		mlx_hook(img->window, 17, 0, close_win, img);
 		mlx_hook(img->window, KEYUP, 0, close_win_esc, img);
+		mlx_loop(img->mlx);
 	}
 }
 
