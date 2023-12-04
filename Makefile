@@ -6,7 +6,7 @@
 #    By: martorre <martorre@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 15:18:11 by martorre          #+#    #+#              #
-#    Updated: 2023/12/04 13:01:23 by martorre         ###   ########.fr        #
+#    Updated: 2023/12/04 16:02:17 by martorre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ make_mlx:
 temp:
 	@mkdir -p temp
 
-$(DIR_O)%.o: %.c $(NAME).h libft/libft.a Makefile
+$(DIR_O)%.o: %.c $(NAME).h libft/libft.a Makefile 
 	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
 clean:

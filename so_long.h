@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:21:43 by martorre          #+#    #+#             */
-/*   Updated: 2023/12/04 12:03:06 by martorre         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:46:27 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ char		**check_file(char *str, t_img *img);
 int			flood_fill(t_img *img, t_point size);
 t_pos		check_letter_pos(t_pos pos, char **tab, int y, int x);
 void		ft_free_map(t_img *img);
+t_pos		pos_final(t_img img);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: martorre <martorre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:59:02 by martorre          #+#    #+#             */
-/*   Updated: 2023/12/04 11:48:16 by martorre         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:38:51 by martorre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,15 @@ void	ft_free_map(t_img *img)
 	while (img->map[y] != NULL)
 	{
 		free(img->map[y]);
-		free(img->mapcpy[y]);
 		y++;
 	}
 	free(img->map);
+	y = 0;
+	while (img->mapcpy[y] != NULL)
+	{
+		free(img->mapcpy[y]);
+		y++;
+	}
 	free(img->mapcpy);
 }
 
